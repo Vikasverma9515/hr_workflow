@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -12,15 +12,83 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* ── Toast slide-in ─────────────────────────────────────────────────────────── */
+@keyframes slide-in-from-bottom {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-in {
+  animation: slide-in-from-bottom 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── React Flow overrides ───────────────────────────────────────────────────── */
+.react-flow__node {
+  cursor: pointer;
+}
+
+.react-flow__handle {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.react-flow__handle:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.react-flow__edge-path {
+  stroke-width: 2.5;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke-width: 3;
+}
+
+/* Controls */
+.react-flow__controls {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.react-flow__controls button {
+  border: none !important;
+  background: white !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.react-flow__controls button:hover {
+  background: #f1f5f9 !important;
+}
+
+/* MiniMap */
+.react-flow__minimap {
+  border-radius: 16px !important;
+  overflow: hidden;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
+}
+
+/* Edge label renderer needs pointer events */
+.react-flow__edgelabel-renderer {
+  pointer-events: all;
+}
+
+/* Attribution hide (optional) */
+.react-flow__attribution {
+  display: none;
 }
